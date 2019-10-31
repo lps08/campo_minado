@@ -31,6 +31,7 @@ public class Tabuleiro {
 	public void construirTabuleiro () {
 		
 		Random random = new Random();
+		ArrayList<Coordenada> vizinhosPerigo = new ArrayList<Coordenada>();
 		int bombas = (int) ((dimensao[0] * dimensao[1]) * 0.16);
 		
 		for (int i = 0; i < dimensao[0]; i++) {
@@ -42,6 +43,13 @@ public class Tabuleiro {
 		for (int i = 0; i < bombas; i ++) {
 			int eixoX = random.nextInt(dimensao[0]);
 			int eixoY = random.nextInt(dimensao[1]);
+			
+			vizinhosPerigo = zonaPerigoBomba(new Coordenada(eixoX, eixoY));
+			for (Coordenada coord : vizinhosPerigo) {
+				if (tabuleiro[coord.getEixoX()][coord.getEixoY()].getEstado().equals(Estado.VAZIO)) {
+					tabuleiro[coord.getEixoX()][coord.getEixoY()].setEstado(Estado.PERIGO);
+				}
+			}
 			
 			System.out.println("X: " + eixoX + " | " + "Y: " + eixoY);
 			
@@ -64,7 +72,7 @@ public class Tabuleiro {
 		}
 	}
 	
-	private ArrayList<Coordenada> zonaPerigo (Coordenada coord) {
+	public ArrayList<Coordenada> zonaPerigoBomba (Coordenada coord) {
 		ArrayList<Coordenada> vizinhos = new ArrayList<Coordenada>();
 		ArrayList<Coordenada> vizinhosNulos = new ArrayList<Coordenada>();
 		
@@ -78,12 +86,14 @@ public class Tabuleiro {
 		vizinhos.add(new Coordenada(coord.getEixoX() + 1, coord.getEixoY() - 1));
 		
 		for (Coordenada i : vizinhos) {
-			if (i.getEixoX() < 0 || i.getEixoY() < 0 || i.getEixoX() > dimensao[0]
-					|| i.getEixoY() > dimensao[1]) 
+			if (i.getEixoX() < 0 || i.getEixoY() < 0 || i.getEixoX() > dimensao[0] - 1
+					|| i.getEixoY() > dimensao[1] - 1) 
 				vizinhosNulos.add(i);
 		}
 		
 		for (Coordenada i : vizinhosNulos) vizinhos.remove(i);
+		
+		for (Coordenada i : vizinhos) System.out.println("[" + i.getEixoX() + "]" + "[" + i.getEixoY() + "]");
 		
 		return vizinhos;
 	}
