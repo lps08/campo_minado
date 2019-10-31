@@ -1,5 +1,5 @@
 package campoMinado;
 
 public enum Estado {
-	BOMBA, VAZIO;
+	BOMBA, VAZIO, PERIGO
 }
