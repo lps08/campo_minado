@@ -43,15 +43,14 @@ public class Tabuleiro {
 		for (int i = 0; i < bombas; i ++) {
 			int eixoX = random.nextInt(dimensao[0]);
 			int eixoY = random.nextInt(dimensao[1]);
+			//adicionar excessão caso eixoX e Y forem iguais já passados
 			
 			vizinhosPerigo = zonaPerigoBomba(new Coordenada(eixoX, eixoY));
 			for (Coordenada coord : vizinhosPerigo) {
-				if (tabuleiro[coord.getEixoX()][coord.getEixoY()].getEstado().equals(Estado.VAZIO)) {
+				if (!tabuleiro[coord.getEixoX()][coord.getEixoY()].getEstado().equals(Estado.BOMBA)) {
 					tabuleiro[coord.getEixoX()][coord.getEixoY()].setEstado(Estado.PERIGO);
 				}
 			}
-			
-			System.out.println("X: " + eixoX + " | " + "Y: " + eixoY);
 			
 			tabuleiro[eixoX][eixoY] = new Zona(Estado.BOMBA, new Coordenada(eixoX, eixoY));
 		}
@@ -61,18 +60,18 @@ public class Tabuleiro {
 		for(Zona[] i: tabuleiro) {
 			for (Zona j : i) {
 				if (j.getEstado().equals(Estado.BOMBA)) {
-					System.out.print("[B]");					
+					System.out.print(" [B] ");					
 				}else if (j.getEstado().equals(Estado.PERIGO)){
-					System.out.print("[~]");					
+					System.out.print(" [" + j.getNumeroBombasProximas() + "] ");					
 				}else {
-					System.out.print("[ ]");
+					System.out.print(" [ ] ");
 				}
 			}
 			System.out.println("\n");
 		}
 	}
 	
-	public ArrayList<Coordenada> zonaPerigoBomba (Coordenada coord) {
+	private ArrayList<Coordenada> zonaPerigoBomba (Coordenada coord) {
 		ArrayList<Coordenada> vizinhos = new ArrayList<Coordenada>();
 		ArrayList<Coordenada> vizinhosNulos = new ArrayList<Coordenada>();
 		
@@ -90,10 +89,7 @@ public class Tabuleiro {
 					|| i.getEixoY() > dimensao[1] - 1) 
 				vizinhosNulos.add(i);
 		}
-		
 		for (Coordenada i : vizinhosNulos) vizinhos.remove(i);
-		
-		for (Coordenada i : vizinhos) System.out.println("[" + i.getEixoX() + "]" + "[" + i.getEixoY() + "]");
 		
 		return vizinhos;
 	}
