@@ -21,10 +21,19 @@ public class Jogo extends Tabuleiro{
 				
 		if (tipoJogada.equals(TipoJogada.revelarZona)) {
 			
-			percorreVizinhosVazios(coordenada);
+			if (getTabuleiro()[coordenada.getEixoX()][coordenada.getEixoY()].getEstado().equals(Estado.VAZIO)) {
+				percorreVizinhosVazios(coordenada);
+			
+			}else {
+				getTabuleiro()[coordenada.getEixoX()][coordenada.getEixoY()].setEstadoZona(EstadoZona.REVELADO);
+				
+				if (getTabuleiro()[coordenada.getEixoX()][coordenada.getEixoY()].getEstado().equals(Estado.BOMBA)) {
+					System.out.println("Perdeu");
+				}
+			}
 			
 		}else if (tipoJogada.equals(TipoJogada.marcarZonaBomba)) {
-						
+			
 		}
 	}
 	
