@@ -97,6 +97,21 @@ public class Tabuleiro {
 		}
 	}
 	
+	public void mostraTabuleiro2 () {
+		for(Zona[] i: tabuleiro) {
+			for (Zona j : i) {
+				if (j.getEstado().equals(Estado.BOMBA)) {
+					System.out.print(" [B] ");					
+				}else if (j.getEstado().equals(Estado.PERIGO)){
+					System.out.print(" [" + j.getNumeroBombasProximas() + "] ");					
+				}else {
+					System.out.print(" [ ] ");
+				}
+			}
+			System.out.println("\n");
+		}
+	}
+	
 	/**
 	 * Função que irá identificar os vizinhos de uma determinada zona.
 	 * @param coord - Coordenada para ser identificados seus vizinhos.

@@ -3,10 +3,15 @@ package campoMinado;
 public class Main {
 
 	public static void main(String[] args) {
-		Tabuleiro tabuleiro = new Tabuleiro(8, 8);
+		Jogo jogo = new Jogo(8, 8);
 		
-		tabuleiro.construirTabuleiro();
-		tabuleiro.mostraTabuleiro();
+		jogo.construirTabuleiro();
+		jogo.jogada(TipoJogada.revelarZona, new Coordenada(5, 5));
+		
+		System.out.println("---------------------");
+		jogo.mostraTabuleiro2();
+		System.out.println("---------------------");
+		jogo.mostraTabuleiro();
 	}
 
 }
