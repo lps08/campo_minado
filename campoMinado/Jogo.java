@@ -4,9 +4,11 @@ import java.util.ArrayList;
 
 public class Jogo extends Tabuleiro{
 	private Jogador jogador; 
+	private StatusPartida statusPartida = StatusPartida.ANDAMENTO;
 	
-	public Jogo (int eixoX, int eixoY) {
+	public Jogo (int eixoX, int eixoY, String nomeJogador) {
 		super(eixoX, eixoY);
+		jogador = new Jogador(nomeJogador);
 	}
 	
 	public Jogador getJogador () {
@@ -15,6 +17,14 @@ public class Jogo extends Tabuleiro{
 
 	public void setJogador (Jogador jogador) {
 		this.jogador = jogador;
+	}
+
+	public StatusPartida getStatusPartida() {
+		return statusPartida;
+	}
+
+	private void setStatusPartida(StatusPartida statusPartida) {
+		this.statusPartida = statusPartida;
 	}
 
 	public void jogada (TipoJogada tipoJogada, Coordenada coordenada) {
@@ -28,16 +38,28 @@ public class Jogo extends Tabuleiro{
 				getTabuleiro()[coordenada.getEixoX()][coordenada.getEixoY()].setEstadoZona(EstadoZona.REVELADO);
 				
 				if (getTabuleiro()[coordenada.getEixoX()][coordenada.getEixoY()].getEstado().equals(Estado.BOMBA)) {
-					System.out.println("Perdeu");
+					for (Zona[] i : getTabuleiro()) {
+						for (Zona j : i) {
+							if (j.getEstado().equals(Estado.BOMBA)) {
+								j.setEstadoZona(EstadoZona.REVELADO);
+							}
+						}
+					}
+					setStatusPartida(StatusPartida.PERDEU);
 				}
 			}
 			
-		}else if (tipoJogada.equals(TipoJogada.marcarZonaBomba)) {
+			checkVitoria();
 			
+		}else if (tipoJogada.equals(TipoJogada.marcarZonaBomba)) {
+			getTabuleiro()[coordenada.getEixoX()][coordenada.getEixoY()].setEstadoZona(EstadoZona.MARCARBOMBA);
+		
+		}else if (tipoJogada.equals(TipoJogada.desmarcarZonaBomba)) {
+			getTabuleiro()[coordenada.getEixoX()][coordenada.getEixoY()].setEstadoZona(EstadoZona.ESCONDIDO);
 		}
 	}
 	
-	public void percorreVizinhosVazios (Coordenada coordenada) {
+	private void percorreVizinhosVazios (Coordenada coordenada) {
 		
 		if (getTabuleiro()[coordenada.getEixoX()][coordenada.getEixoY()].getEstado().equals(Estado.VAZIO)) {
 			
@@ -57,6 +79,22 @@ public class Jogo extends Tabuleiro{
 					
 				}
 			}
+		}
+	}
+	
+	private void checkVitoria () {
+		int cont = 0;
+		
+		for (Zona[] i : getTabuleiro()) {
+			for (Zona j : i) {
+				if (j.getEstadoZona().equals(EstadoZona.REVELADO) && !j.getEstado().equals(Estado.BOMBA)) {
+					cont += 1;
+				}
+			}
+		}
+		
+		if (cont == ((getDimensao()[0] * getDimensao()[1]) - getNumBombas())) {
+			setStatusPartida(StatusPartida.GANHOU);
 		}
 	}
 }

@@ -1,5 +1,5 @@
 package campoMinado;
 
 public enum EstadoZona {
-	REVELADO, ESCONDIDO;
+	REVELADO, ESCONDIDO, MARCARBOMBA;
 }

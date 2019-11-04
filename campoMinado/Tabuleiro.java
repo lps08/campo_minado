@@ -11,6 +11,7 @@ public class Tabuleiro {
 	
 	private int[] dimensao = new int[2];
 	private Zona[][] tabuleiro;
+	private int numBombas;
 	
 	public Tabuleiro (int eixoX, int eixoY) {
 		tabuleiro = new Zona[eixoX][eixoY];
@@ -42,10 +43,14 @@ public class Tabuleiro {
 	/**
 	 * @return - Retorna a matriz do tabuleiro.
 	 */
-	public Zona[][] getTabuleiro() {
+	protected Zona[][] getTabuleiro() {
 		return tabuleiro;
 	}
 	
+	public int getNumBombas() {
+		return numBombas;
+	}
+
 	/**
 	 * Função responsável por construir o tabuleiro dado as dimensões.
 	 */
@@ -79,16 +84,31 @@ public class Tabuleiro {
 	 * Função que irá printar o tabuleiro no terminal, de acordo com a construção feita.
 	 */
 	public void mostraTabuleiro () {
-		for(Zona[] i: tabuleiro) {
-			for (Zona j : i) {
+		
+		for (int i = 0; i < dimensao[1]; i++) System.out.print("    " + i);
+		System.out.println("");
+		
+		for (int i = 0; i < dimensao[0]; i++) {
+			
+			System.out.print(i + " ");
+			
+			for (Zona j : tabuleiro[i]) {
+				
 				if (j.getEstadoZona().equals(EstadoZona.REVELADO)) {
+					
 					if (j.getEstado().equals(Estado.BOMBA)) {
-						System.out.print(" [B] ");					
+						System.out.print(" [B] ");		
+						
 					}else if (j.getEstado().equals(Estado.PERIGO)){
-						System.out.print(" [" + j.getNumeroBombasProximas() + "] ");					
+						System.out.print(" [" + j.getNumeroBombasProximas() + "] ");
+						
 					}else {
 						System.out.print(" [ ] ");
 					}
+					
+				}else if (j.getEstadoZona().equals(EstadoZona.MARCARBOMBA)) {
+					System.out.print(" [*] ");
+				
 				}else {
 					System.out.print(" [?] ");
 				}
@@ -98,8 +118,16 @@ public class Tabuleiro {
 	}
 	
 	public void mostraTabuleiro2 () {
-		for(Zona[] i: tabuleiro) {
-			for (Zona j : i) {
+		
+		for (int i = 0; i < dimensao[1]; i++) System.out.print("    " + i);
+		System.out.println("");
+		
+		for (int i = 0; i < dimensao[0]; i++) {
+			
+			System.out.print(i + " ");
+			
+			for (Zona j : tabuleiro[i]) {
+				
 				if (j.getEstado().equals(Estado.BOMBA)) {
 					System.out.print(" [B] ");					
 				}else if (j.getEstado().equals(Estado.PERIGO)){
@@ -131,8 +159,7 @@ public class Tabuleiro {
 		vizinhos.add(new Coordenada(coord.getEixoX() + 1, coord.getEixoY() - 1));
 		
 		for (Coordenada i : vizinhos) {
-			if (i.getEixoX() < 0 || i.getEixoY() < 0 || i.getEixoX() > dimensao[0] - 1
-					|| i.getEixoY() > dimensao[1] - 1) 
+			if (i.getEixoX() < 0 || i.getEixoY() < 0 || i.getEixoX() > dimensao[0] - 1 || i.getEixoY() > dimensao[1] - 1) 
 				vizinhosNulos.add(i);
 		}
 		for (Coordenada i : vizinhosNulos) vizinhos.remove(i);
@@ -147,9 +174,9 @@ public class Tabuleiro {
 	private void adicionaBombas (double porcentagemBombas) {
 		
 		Random random = new Random();
-		int bombas = (int) ((dimensao[0] * dimensao[1]) * (porcentagemBombas / 100));
+		numBombas = (int) ((dimensao[0] * dimensao[1]) * (porcentagemBombas / 100));
 		
-		for (int i = 0; i < bombas; i ++) {
+		for (int i = 0; i < numBombas; i ++) {
 			
 			int eixoX = random.nextInt(dimensao[0]);
 			int eixoY = random.nextInt(dimensao[1]);
