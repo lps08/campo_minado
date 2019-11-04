@@ -5,10 +5,10 @@ import java.util.ArrayList;
 public class Jogo extends Tabuleiro{
 	private Jogador jogador; 
 	private StatusPartida statusPartida = StatusPartida.ANDAMENTO;
-	
-	public Jogo (int eixoX, int eixoY, String nomeJogador) {
+
+	public Jogo (int eixoX, int eixoY, Jogador jogador) {
 		super(eixoX, eixoY);
-		jogador = new Jogador(nomeJogador);
+		this.jogador = jogador;
 	}
 	
 	public Jogador getJogador () {

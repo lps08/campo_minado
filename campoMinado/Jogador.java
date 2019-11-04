@@ -6,6 +6,7 @@ package campoMinado;
  */
 public class Jogador {
 	private String nome;
+	private double tempo;
 	
 	/**
 	 * Adiciona o nome de um jogador.
@@ -28,5 +29,13 @@ public class Jogador {
 	 */
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public double getTempo() {
+		return tempo;
+	}
+
+	public void setTempo(double tempo) {
+		this.tempo = tempo;
 	}
 }

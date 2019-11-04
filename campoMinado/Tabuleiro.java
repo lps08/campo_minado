@@ -43,7 +43,7 @@ public class Tabuleiro {
 	/**
 	 * @return - Retorna a matriz do tabuleiro.
 	 */
-	protected Zona[][] getTabuleiro() {
+	public Zona[][] getTabuleiro() {
 		return tabuleiro;
 	}
 	
@@ -189,6 +189,12 @@ public class Tabuleiro {
 					}
 				}
 			}
+		}
+	}
+	
+	static public void checkDimensao (int x, int y) throws Exception {
+		if (x < 8 || y < 8) {
+			throw new Exception("O tamanho mínimo do tabuleiro é [8,8]");
 		}
 	}
 }
