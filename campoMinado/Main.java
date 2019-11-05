@@ -7,11 +7,12 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
+		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 		int cont = 1, resp;
 		double time1, time2;
 		Testes testes = new Testes();
-		Classificacao classificacao;
+		Classificacao classificacao = new Classificacao();
 		
 		System.out.println("-------------------------");
 		System.out.println("----Jogo campo minado----");
@@ -154,8 +155,10 @@ public class Main {
 				cont += 1;
 			}
 			
-			jogador.setTempo((time2 - time1) / 1000);
-			classificacao = new Classificacao(jogador, jogo.getStatusPartida());
+			if (jogo.getStatusPartida().equals(StatusPartida.GANHOU)) {
+				jogador.setTempo((time2 - time1) / 1000);
+				classificacao.addJogadores(jogador);
+			}
 			
 			System.out.println("Tempo de partida: " + ((time2 - time1) / 1000) + " Segundos");
 			
@@ -164,7 +167,10 @@ public class Main {
 		
 		}while (resp != 2);
 		
-		classificacao.mostraTabela();
+		System.out.println("--------------------");
+		System.out.println("---Classificacao----");
+		System.out.println("--------------------");
+		classificacao.mostraClassificacao();
 		
 	}
 }

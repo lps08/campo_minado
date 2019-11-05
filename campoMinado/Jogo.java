@@ -11,22 +11,41 @@ public class Jogo extends Tabuleiro{
 		this.jogador = jogador;
 	}
 	
+	/**
+	 * 
+	 * @return - Retorna o objeto jogador.
+	 */
 	public Jogador getJogador () {
 		return jogador;
 	}
-
+	
+	/**
+	 * Adiciona/modifica o jogador.
+	 * @param jogador - jogardor a ser adicionado/modificado
+	 */
 	public void setJogador (Jogador jogador) {
 		this.jogador = jogador;
 	}
-
+	
+	/**
+	 * @return - retorna o status da partida.
+	 */
 	public StatusPartida getStatusPartida() {
 		return statusPartida;
 	}
-
+	
+	/**Adiciona/modifica o status da partida com a classe do tipo enum.
+	 * @param statusPartida - Status da partida.
+	 */
 	private void setStatusPartida(StatusPartida statusPartida) {
 		this.statusPartida = statusPartida;
 	}
-
+	
+	/**
+	 * Função responsavel por processar as jogadas feitas pelo jogador
+	 * @param tipoJogada - Coloca o tipo de jogada a ser efetuada com a classe enum TipoJogada.
+	 * @param coordenada
+	 */
 	public void jogada (TipoJogada tipoJogada, Coordenada coordenada) {
 				
 		if (tipoJogada.equals(TipoJogada.revelarZona)) {
@@ -59,6 +78,10 @@ public class Jogo extends Tabuleiro{
 		}
 	}
 	
+	/**
+	 * Funcao que percorre os vizinhos vazios adjacentes.
+	 * @param coordenada - cordenada a qual a funcao irá percorrer os vizinhos.
+	 */
 	private void percorreVizinhosVazios (Coordenada coordenada) {
 		
 		if (getTabuleiro()[coordenada.getEixoX()][coordenada.getEixoY()].getEstado().equals(Estado.VAZIO)) {
@@ -82,6 +105,9 @@ public class Jogo extends Tabuleiro{
 		}
 	}
 	
+	/**
+	 * funcao responsavel por checkar se o usuário ganhou
+	 */
 	private void checkVitoria () {
 		int cont = 0;
 		

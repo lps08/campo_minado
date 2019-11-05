@@ -2,34 +2,31 @@ package campoMinado;
 
 import java.util.ArrayList;
 
+/**
+ * Classe responsavel por armazenar as classificacao dos jogadores
+ * @author lps
+ */
 public class Classificacao {
+	private ArrayList<Jogador> jogadores = new ArrayList<Jogador>();
 	
-	private Jogador jogador;
-	private StatusPartida statusPartida;
-	private ArrayList<Jogador> ganhadores = new ArrayList<Jogador>();
-	
-	public Classificacao(Jogador jogador, StatusPartida statusPartida) {
-		this.jogador = jogador;
-		this.statusPartida = statusPartida;
-		
-		ganhadores();
+	public Classificacao () {
 	}
 	
-	private void ganhadores () {
-		if (statusPartida.equals(StatusPartida.GANHOU)) {
-			ganhadores.add(jogador);
-		}
+	/**
+	 * Metodo que adiciona um jogador para um ArrayList, que armazenara os jogadores vencedores 
+	 * @param jogador - Jogador a ser adicionado
+	 */
+	public void addJogadores (Jogador jogador) {
+		jogadores.add(jogador);
 	}
 	
-	public void mostraTabela () {
-		
-		for (Jogador i : ganhadores) {
-			System.out.println("---------------");
-			System.out.println("Placares:");
-			System.out.println("---------------");
-			System.out.println("Nome: " + i.getNome() + " | " + "Tempo: " + i.getTempo());
+	/**
+	 * Imprime a listas de jogadores
+	 */
+	public void mostraClassificacao () {
+		for (Jogador i : jogadores) {
+			System.out.println("Nome: " + i.getNome() + " | " + "Tempo: " + i.getTempo() + " segundos");
 		}
-		
 	}
 	
 }

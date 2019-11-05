@@ -110,13 +110,16 @@ public class Tabuleiro {
 					System.out.print(" [*] ");
 				
 				}else {
-					System.out.print(" [?] ");
+					System.out.print(" [-] ");
 				}
 			}
 			System.out.println("\n");
 		}
 	}
 	
+	/**
+	 * imprime todo o tabuleiro revelado
+	 */
 	public void mostraTabuleiro2 () {
 		
 		for (int i = 0; i < dimensao[1]; i++) System.out.print("    " + i);
@@ -189,12 +192,6 @@ public class Tabuleiro {
 					}
 				}
 			}
-		}
-	}
-	
-	static public void checkDimensao (int x, int y) throws Exception {
-		if (x < 8 || y < 8) {
-			throw new Exception("O tamanho mínimo do tabuleiro é [8,8]");
 		}
 	}
 }
