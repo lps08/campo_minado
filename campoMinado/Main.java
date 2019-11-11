@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Main {
 	
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws MinhasException {
 		
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
@@ -23,10 +23,12 @@ public class Main {
 			System.out.print("Nome jogador: ");
 			String nomeJogador = sc.next();
 			
-			while (nomeJogador.length() < 3) {
-				try {
-					testes.checkNome(nomeJogador);
-				} catch (Exception e) {
+			while (true) {
+				try {					
+					if (testes.checkNome(nomeJogador)) {
+						break;
+					}
+				} catch (MinhasException e) {
 					System.err.println(e);
 					
 					System.out.print("Nome jogador: ");
@@ -41,7 +43,7 @@ public class Main {
 			while (Integer.parseInt(tamanho.split(",")[0]) < 8 || Integer.parseInt(tamanho.split(",")[1]) < 8) {
 				try {
 					testes.checkDimensao(Integer.parseInt(tamanho.split(",")[0]), Integer.parseInt(tamanho.split(",")[1]));
-				} catch (Exception e) {
+				} catch (MinhasException e) {
 					System.err.println(e);
 					System.out.print("Tamanho tabuleiro no eixo X e Y [min: 8,8]: ");
 					tamanho = sc.next();
@@ -70,7 +72,7 @@ public class Main {
 					try {
 						testes.checkJogada(Integer.parseInt(jogada.split(",")[0]), Integer.parseInt(jogada.split(",")[1]), Integer.parseInt(tamanho.split(",")[0]), Integer.parseInt(tamanho.split(",")[1]), jogo);
 					
-					} catch (Exception e) {
+					} catch (MinhasException e) {
 						System.err.println(e);
 						
 						System.out.println("Jogada " + cont);
@@ -83,6 +85,20 @@ public class Main {
 				System.out.println("1 - Revelar zona | 2 - Marcar bomba | 3 - Desmarcar coordenada");
 				int tipoJogada = sc.nextInt();
 				
+				while (true) {
+					try {
+						if (testes.checkTipoJogada(tipoJogada)) {
+							break;
+						}
+					} catch (MinhasException e) {
+						System.err.println(e);
+						
+						System.out.println("----Tipo de jogada----");
+						System.out.println("1 - Revelar zona | 2 - Marcar bomba | 3 - Desmarcar coordenada");
+						tipoJogada = sc.nextInt();
+					}
+				}
+				
 				if (tipoJogada == 1 && jogo.getTabuleiro()[Integer.parseInt(jogada.split(",")[0])][Integer.parseInt(jogada.split(",")[1])].getEstadoZona().equals(EstadoZona.REVELADO)) {
 					
 					while (true) {
@@ -90,7 +106,7 @@ public class Main {
 							try {
 								testes.checkZonaRevelada(Integer.parseInt(jogada.split(",")[0]), Integer.parseInt(jogada.split(",")[1]), jogo);
 							
-							} catch (Exception e) {
+							} catch (MinhasException e) {
 								System.err.println(e);
 								
 								System.out.println("Jogada " + cont);
@@ -103,7 +119,7 @@ public class Main {
 									try {
 										testes.checkJogada(Integer.parseInt(jogada.split(",")[0]), Integer.parseInt(jogada.split(",")[1]), Integer.parseInt(tamanho.split(",")[0]), Integer.parseInt(tamanho.split(",")[1]), jogo);
 									
-									} catch (Exception r) {
+									} catch (MinhasException r) {
 										System.err.println(r);
 										
 										System.out.println("Jogada " + cont);
@@ -115,6 +131,20 @@ public class Main {
 								System.out.println("----Tipo de jogada----");
 								System.out.println("1 - Revelar zona | 2 - Marcar bomba | 3 - Desmarcar coordenada");
 								tipoJogada = sc.nextInt();
+								
+								while (true) {
+									try {
+										if (testes.checkTipoJogada(tipoJogada)) {
+											break;
+										}
+									} catch (MinhasException f) {
+										System.err.println(f);
+										
+										System.out.println("----Tipo de jogada----");
+										System.out.println("1 - Revelar zona | 2 - Marcar bomba | 3 - Desmarcar coordenada");
+										tipoJogada = sc.nextInt();
+									}
+								}
 								
 							}
 						}else break;

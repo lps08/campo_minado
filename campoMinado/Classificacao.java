@@ -21,11 +21,21 @@ public class Classificacao {
 	}
 	
 	/**
-	 * Imprime a listas de jogadores
+	 * Imprime a listas de jogadores junto com o tempo
 	 */
 	public void mostraClassificacao () {
-		for (Jogador i : jogadores) {
-			System.out.println("Nome: " + i.getNome() + " | " + "Tempo: " + i.getTempo() + " segundos");
+		//falta sortear
+		double menor = 999999999;
+		Jogador jogadorMenorTempo = null;
+		for (int i = 0; i < jogadores.size(); i++) {
+			for (Jogador j : jogadores) {
+				if (j.getTempo() < menor) {
+					menor = j.getTempo();
+					jogadorMenorTempo = j;					
+				}
+				System.out.println("Nome: " + jogadorMenorTempo.getNome() + " | " + "Tempo: " + jogadorMenorTempo.getTempo() + " segundos");
+				jogadores.remove(jogadorMenorTempo);
+			}
 		}
 	}
 	
