@@ -1,10 +1,9 @@
-package campoMinado;
+package tabuleiro;
 
 /**
  * Classe que representa uma zona no tabuleiro, ou seja, 
  * uma coordenada no plano cartesiano.
  * @author lps
- *
  */
 public class Zona {
 	private Estado estado;
@@ -13,6 +12,14 @@ public class Zona {
 	private int numeroBombasProximas = 0;
 	
 	public Zona () {
+	}
+	
+	/**
+	 * Irá ser criado uma zona de acordo com seu estado e sua coordenada.
+	 * @param coordenada - coordenada contendo as posições x, y.
+	 */
+	public Zona (Coordenada coordenada) {
+		this(Estado.VAZIO, EstadoZona.ESCONDIDO, coordenada);
 	}
 	
 	/**

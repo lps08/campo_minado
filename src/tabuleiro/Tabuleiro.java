@@ -1,4 +1,4 @@
-package campoMinado;
+package tabuleiro;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -13,6 +13,18 @@ public class Tabuleiro {
 	private Zona[][] tabuleiro;
 	private int numBombas;
 	
+	/**
+	 * Caso não passe as dimensões do tabuleiro, o mesmo irá ser iniciado com as dimensões mínimas.
+	 */
+	public Tabuleiro () {
+		this(4,4);
+	}
+	
+	/**
+	 * Construtor que tem a finalidade de pegar o tamanho do tabuleiro.
+	 * @param eixoX - Inteiro representando o tamanho do tabuleiro no eixo x.
+	 * @param eixoY - Inteiro representando o tamanho do tabuleiro no eixo y.
+	 */
 	public Tabuleiro (int eixoX, int eixoY) {
 		tabuleiro = new Zona[eixoX][eixoY];
 		dimensao[0] = eixoX;
@@ -21,7 +33,6 @@ public class Tabuleiro {
 	
 	/**
 	 * Irá retornar um vetor de contendo as dimensões do tabuleiro.
-	 * 
 	 * @return retorna dimensao[eixoX, eixoY]
 	 */
 	public int[] getDimensao() {
@@ -43,10 +54,14 @@ public class Tabuleiro {
 	/**
 	 * @return - Retorna a matriz do tabuleiro.
 	 */
-	public Zona[][] getTabuleiro() {
+	public Zona[][] getCampo() {
 		return tabuleiro;
 	}
 	
+	/**
+	 * Pega o numero de bumbas que o tabuleiro possui.
+	 * @return - Número inteiro com a quantidade de bombas.
+	 */
 	public int getNumBombas() {
 		return numBombas;
 	}
@@ -81,74 +96,11 @@ public class Tabuleiro {
 	}
 	
 	/**
-	 * Função que irá printar o tabuleiro no terminal, de acordo com a construção feita.
-	 */
-	public void mostraTabuleiro () {
-		
-		for (int i = 0; i < dimensao[1]; i++) System.out.print("    " + i);
-		System.out.println("");
-		
-		for (int i = 0; i < dimensao[0]; i++) {
-			
-			System.out.print(i + " ");
-			
-			for (Zona j : tabuleiro[i]) {
-				
-				if (j.getEstadoZona().equals(EstadoZona.REVELADO)) {
-					
-					if (j.getEstado().equals(Estado.BOMBA)) {
-						System.out.print(" [B] ");		
-						
-					}else if (j.getEstado().equals(Estado.PERIGO)){
-						System.out.print(" [" + j.getNumeroBombasProximas() + "] ");
-						
-					}else {
-						System.out.print(" [ ] ");
-					}
-					
-				}else if (j.getEstadoZona().equals(EstadoZona.MARCARBOMBA)) {
-					System.out.print(" [*] ");
-				
-				}else {
-					System.out.print(" [-] ");
-				}
-			}
-			System.out.println("\n");
-		}
-	}
-	
-	/**
-	 * imprime todo o tabuleiro revelado
-	 */
-	public void mostraTabuleiro2 () {
-		
-		for (int i = 0; i < dimensao[1]; i++) System.out.print("    " + i);
-		System.out.println("");
-		
-		for (int i = 0; i < dimensao[0]; i++) {
-			
-			System.out.print(i + " ");
-			
-			for (Zona j : tabuleiro[i]) {
-				
-				if (j.getEstado().equals(Estado.BOMBA)) {
-					System.out.print(" [B] ");					
-				}else if (j.getEstado().equals(Estado.PERIGO)){
-					System.out.print(" [" + j.getNumeroBombasProximas() + "] ");					
-				}else {
-					System.out.print(" [ ] ");
-				}
-			}
-			System.out.println("\n");
-		}
-	}
-	
-	/**
 	 * Função que irá identificar os vizinhos de uma determinada zona.
 	 * @param coord - Coordenada para ser identificados seus vizinhos.
 	 * @return - Retorna um ArrayList com as posições dos vizinhos de uma coordenada.
 	 */
-	protected ArrayList<Coordenada> vizinhos (Coordenada coord) {
+	public ArrayList<Coordenada> vizinhos (Coordenada coord) {
 		ArrayList<Coordenada> vizinhos = new ArrayList<Coordenada>();
 		ArrayList<Coordenada> vizinhosNulos = new ArrayList<Coordenada>();
 		

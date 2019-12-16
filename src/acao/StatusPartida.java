@@ -1,4 +1,4 @@
-package campoMinado;
+package acao;
 
 public enum StatusPartida {
 	GANHOU, PERDEU, ANDAMENTO;

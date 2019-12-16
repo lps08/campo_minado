@@ -1,4 +1,4 @@
-package campoMinado;
+package tabuleiro;
 
 /**
  * Classe onde irá especificar o tipo de estado de uma zona.

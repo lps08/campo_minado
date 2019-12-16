@@ -1,4 +1,4 @@
-package campoMinado;
+package tabuleiro;
 
 /**
  * Classe em que será responsável pelas coordenadas de uma zona.
@@ -54,7 +54,8 @@ public class Coordenada {
 	/**
 	 * Função teste para mostrar uma determinada coordenada.
 	 */
-	public void mostraCoord() {
-		System.out.print("[" + eixoX + "]" + "[" + eixoY + "]\n");
+	@Override
+	public String toString() {
+		return "[" + eixoX + "]" + "[" + eixoY + "]\n";
 	}
 }
