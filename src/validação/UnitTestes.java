@@ -67,40 +67,31 @@ public class UnitTestes {
 	//testa uma dimensao invalida menor que a permitido no eixo x
 	@Test(expected = DimensaoTabuleiroException.class)
 	public void checkDimensaoInvalidaMenorPrimeiro () throws DimensaoTabuleiroException{
-		Validador.checkDimensao(7, 8);
+		Validador.checkDimensao("7,8");
 	}
 	
 	//testa uma dimensao invalida menor que a permitido no eixo y
 	@Test(expected = DimensaoTabuleiroException.class)
 	public void checkDimensaoInvalidaMenorSegundo () throws DimensaoTabuleiroException{
-		Validador.checkDimensao(8, 7);
+		Validador.checkDimensao("8,7");
 	}
 	
 	//testa uma jogada invalida maior que o tabuleiro no eixo x
 	@Test(expected = JogadaException.class)
-	public void checkJogadaInvalidaMaiorX () throws JogadaException{
-		Jogador jogador = new Jogador("Luciano");
-		Partida jogo = new Partida(8,8,jogador);
-		
-		Validador.checkJogada(10, 7, 8, 8, jogo);
+	public void checkJogadaInvalidaMaiorX () throws JogadaException{		
+		Validador.checkJogada("10,7", new Integer[] {8, 8});
 	}
 	
 	//testa uma jogada invalida maior que o tabuleiro no eixo y
 	@Test(expected = JogadaException.class)
-	public void checkJogadaInvalidaMaiorY () throws JogadaException{
-		Jogador jogador = new Jogador("Luciano");
-		Partida jogo = new Partida(8,8,jogador);
-		
-		Validador.checkJogada(7, 10, 8, 8, jogo);
+	public void checkJogadaInvalidaMaiorY () throws JogadaException{		
+		Validador.checkJogada("7,10", new Integer[] {8, 8});
 	}
 	
 	//testa uma jogada invalida maior que o tabuleiro no eixo x e y
 	@Test(expected = JogadaException.class)
-	public void checkJogadaInvalidaMaiorXY () throws JogadaException{
-		Jogador jogador = new Jogador("Luciano");
-		Partida jogo = new Partida(8,8,jogador);
-		
-		Validador.checkJogada(10, 10, 8, 8, jogo);
+	public void checkJogadaInvalidaMaiorXY () throws JogadaException{		
+		Validador.checkJogada("10,10", new Integer[] {8, 8});
 	}
 	
 	//testa uma jogada valida no range do tabuleiro
@@ -110,7 +101,7 @@ public class UnitTestes {
 		Partida jogo = new Partida(8,8,jogador);
 		jogo.iniciarJogo();
 		
-		assertTrue(Validador.checkJogada(1, 5, 8, 8, jogo));
+		assertTrue(Validador.checkJogada("1,5", new Integer[] {8, 8}));
 	}
 	
 	//testa uma jogada valida no limite do tabuleiro
@@ -121,7 +112,7 @@ public class UnitTestes {
 		jogo.iniciarJogo();
 		
 		//teste 8,8 = 7,7, contando com 0
-		assertTrue(Validador.checkJogada(7, 7, 8, 8, jogo));
+		assertTrue(Validador.checkJogada("7,7", new Integer[] {8, 8}));
 	}
 	
 	//testa uma jogada de zona ja revelada no tabuleiro
@@ -138,30 +129,30 @@ public class UnitTestes {
 	//testa se caso a opcao for menor que a esperado, lanca uma excetion
 	@Test(expected = TipoJogadaExcetion.class)
 	public void checkTipoJogadaInvalidaMenor () throws TipoJogadaExcetion {
-		Validador.checkTipoJogada(0);
+		Validador.checkTipoJogada("0");
 	}
 	
 	//testa se caso a opcao for maior que a esperado, lanca uma excetion
 	@Test(expected = TipoJogadaExcetion.class)
 	public void checkTipoJogadaInvalidaMaior () throws TipoJogadaExcetion {
-		Validador.checkTipoJogada(4);
+		Validador.checkTipoJogada("4");
 	}
 	
 	//testa a opcao 1 como valida
 	@Test
 	public void checkTipoJogadaValida1 () throws TipoJogadaExcetion {
-		assertTrue(Validador.checkTipoJogada(1));
+		assertTrue(Validador.checkTipoJogada("1"));
 	}
 	
 	//testa a opcao 2 como valida
 	@Test
 	public void checkTipoJogadaValida2 () throws TipoJogadaExcetion {
-		assertTrue(Validador.checkTipoJogada(2));
+		assertTrue(Validador.checkTipoJogada("2"));
 	}
 	
 	//testa a opcao 3 como valida
 	@Test
 	public void checkTipoJogadaValida3 () throws TipoJogadaExcetion {
-		assertTrue(Validador.checkTipoJogada(3));
+		assertTrue(Validador.checkTipoJogada("3"));
 	}
 }

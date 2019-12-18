@@ -37,11 +37,16 @@ public class Validador {
 	 * @param y posicao no eixo y.
 	 * @throws Exception - caso for menor q a permitida, lança o exception.
 	 */
-	public static Boolean checkDimensao (int x, int y) throws DimensaoTabuleiroException {
-		if (x < 4 || y < 4) {
-			throw new DimensaoTabuleiroException("O tamanho minimo do tabuleiro e [4,4]");
+	public static Boolean checkDimensao (String coordenadas) throws DimensaoTabuleiroException {		
+		if (coordenadas.matches("([0-9][0-9]|[0-9]),([0-9][0-9]|[0-9])")) {
+			int x = Integer.parseInt(coordenadas.split(",")[0]);
+			int y = Integer.parseInt(coordenadas.split(",")[1]);
+			if (x < 4 || y < 4) {
+				throw new DimensaoTabuleiroException("O tamanho minimo do tabuleiro e [4,4]");
+				
+			}else return true;
+		}else throw new DimensaoTabuleiroException("Tamanho inválido");
 		
-		}else return true;
 	}
 	
 	/**
@@ -53,14 +58,19 @@ public class Validador {
 	 * @param jogo - Onde sera obtido informacoes do jogo como o tabuleiro, por exemplo.
 	 * @throws Exception
 	 */
-	public static Boolean checkJogada (int xEntrada, int yEntrada, int xMaior, int yMaior, Partida jogo) throws JogadaException {
-		if (xEntrada >= xMaior || yEntrada >= yMaior) {
-			throw new JogadaException("Jogada invalida");
-		/*
-		}else if (jogo.getTabuleiro()[xEntrada][yEntrada].getEstadoZona().equals(EstadoZona.REVELADO)) {
-			throw new JogadaException("Zona ja revelada");*/
-		
-		}else return true;
+	public static Boolean checkJogada (String jogada, Integer[] tamanho) throws JogadaException {
+		if (jogada.matches("([0-9][0-9]|[0-9]),([0-9][0-9]|[0-9])")) {
+			int xEntrada = Integer.parseInt(jogada.split(",")[0]);
+			int yEntrada = Integer.parseInt(jogada.split(",")[1]);
+			int xMaior = tamanho[0];
+			int yMaior = tamanho[1];
+			
+			if (xEntrada >= xMaior || yEntrada >= yMaior) {
+				throw new JogadaException("Jogada invalida");
+				
+			}else return true;
+			
+		}else throw new JogadaException("Jogada inválida");
 	}
 	
 	/**
@@ -83,11 +93,11 @@ public class Validador {
 	 * @return - true caso a opcao for valida || false - caso nao passe no teste.
 	 * @throws MinhasException - Lanca a exception caso nao passe no teste.
 	 */
-	public static Boolean checkTipoJogada (int opcao) throws TipoJogadaExcetion{
-		if (opcao >= 1 && opcao <=3) {
+	public static Boolean checkTipoJogada (String opcao) throws TipoJogadaExcetion{
+		if (opcao.matches("([1-3])")) {
 			return true;
 		
-		}else throw new TipoJogadaExcetion("Opcao invalida!");
+		}else throw new TipoJogadaExcetion("Opcao inválida");
 	}
 	
 	/**
@@ -96,10 +106,10 @@ public class Validador {
 	 * @return - retorna um inteiro contendo a resposta dada pelo usuario validada.
 	 * @throws RespostaFimException - Lança a exception caso a respota não for válida.
 	 */
-	public static Boolean checkRespostaFim(int resposta) throws RespostaFimException {
-		if (resposta >= 1 && resposta <= 2) {
+	public static Boolean checkRespostaFim(String resposta) throws RespostaFimException {
+		if (resposta.matches("([1-2])")) {
 			return true;
-		
+			
 		}else throw new RespostaFimException("Resposta inválida");
 	}
 }

@@ -72,7 +72,7 @@ public class InterfaceUsuario {
 		
 		while (true) {
 			try {
-				if (Validador.checkDimensao(Integer.parseInt(tamanho.split(",")[0]), Integer.parseInt(tamanho.split(",")[1]))) {
+				if (Validador.checkDimensao(tamanho)) {
 					break;
 				}
 			} catch (DimensaoTabuleiroException e) {
@@ -98,7 +98,7 @@ public class InterfaceUsuario {
 		while (true) {
 			
 			try {
-				if (Validador.checkJogada(Integer.parseInt(jogada.split(",")[0]), Integer.parseInt(jogada.split(",")[1]), tamanho[0], tamanho[1], partida) 
+				if (Validador.checkJogada(jogada, tamanho) 
 					&& Validador.checkZonaRevelada(Integer.parseInt(jogada.split(",")[0]), Integer.parseInt(jogada.split(",")[1]), partida))
 					break;
 			
@@ -128,7 +128,7 @@ public class InterfaceUsuario {
 	public static int getTipoJogada() {
 		System.out.println("----Tipo de jogada----");
 		System.out.println("1 - Revelar zona | 2 - Marcar bomba | 3 - Desmarcar coordenada");
-		int tipoJogada = sc.nextInt();
+		String tipoJogada = sc.next();
 		
 		while (true) {
 			try {
@@ -140,10 +140,10 @@ public class InterfaceUsuario {
 				
 				System.out.println("----Tipo de jogada----");
 				System.out.println("1 - Revelar zona | 2 - Marcar bomba | 3 - Desmarcar coordenada");
-				tipoJogada = sc.nextInt();
+				tipoJogada = sc.next();
 			}
 		}
-		return tipoJogada;
+		return Integer.valueOf(tipoJogada);
 	}
 	
 	/**
@@ -152,7 +152,7 @@ public class InterfaceUsuario {
 	 */
 	public static int getFimJogo() {
 		System.out.println("1 - Jogar novamente | 2 - Desistir\n");
-		int resp = sc.nextInt();
+		String resp = sc.next();
 		
 		while (true) {
 			try {
@@ -163,10 +163,10 @@ public class InterfaceUsuario {
 				System.err.println(e);
 				
 				System.out.println("1 - Jogar novamente | 2 - Desistir\n");
-				resp = sc.nextInt();
+				resp = sc.next();
 			}
 		}
-		return resp;
+		return Integer.valueOf(resp);
 	}
 	
 	/**
