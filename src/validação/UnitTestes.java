@@ -67,13 +67,13 @@ public class UnitTestes {
 	//testa uma dimensao invalida menor que a permitido no eixo x
 	@Test(expected = DimensaoTabuleiroException.class)
 	public void checkDimensaoInvalidaMenorPrimeiro () throws DimensaoTabuleiroException{
-		Validador.checkDimensao("7,8");
+		Validador.checkDimensao("3,3");
 	}
 	
 	//testa uma dimensao invalida menor que a permitido no eixo y
 	@Test(expected = DimensaoTabuleiroException.class)
 	public void checkDimensaoInvalidaMenorSegundo () throws DimensaoTabuleiroException{
-		Validador.checkDimensao("8,7");
+		Validador.checkDimensao("8,3");
 	}
 	
 	//testa uma jogada invalida maior que o tabuleiro no eixo x
