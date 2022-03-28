@@ -20,28 +20,6 @@ public class Classificacao {
 	private Classificacao() {
 	}
 	
-//	/**
-//	 * Construtor que irá pegar a instancia do jogador e adicioná-lo ao array de classificação caso seja ganhador.
-//	 * @param jogador
-//	 */
-//	private Classificacao (Jogador jogador) {
-//		this.addJogadore(jogador);
-//	}
-	
-//	/**
-//	 * Método que retorna uma instancia dessa classe. Caso não esteja criada, ele cria uma instancia e a retorna.
-//	 * @param jogador - Parâmetro necessário para o contrutor da classe, em que o mesmo vai ser adicionado ao ranking.
-//	 * @return - Instancia da Classe Classificacao.
-//	 */
-//	public static Classificacao getInstace(Jogador jogador) {
-//		if (singleInstace == null) {
-//			synchronized (Classificacao.class) {
-//				singleInstace = new Classificacao(jogador);			
-//			}
-//		}
-//		return singleInstace;
-//	}
-	
 	/**
 	 * Método que retorna uma instancia dessa classe. Caso não esteja criada, ele cria uma instancia e a retorna.
 	 * @return - Instancia da Classe Classificacao.
