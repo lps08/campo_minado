@@ -83,7 +83,7 @@ public class Partida {
 		if (tipoJogada.equals(TipoJogada.revelarZona)) {
 			
 			if (tabuleiro.getCampo()[coordenada.getEixoX()][coordenada.getEixoY()].getEstado().equals(Estado.VAZIO)) {
-				percorreVizinhosVazios(coordenada);
+				percorreVizinhos(coordenada);
 			
 			}else {
 				tabuleiro.getCampo()[coordenada.getEixoX()][coordenada.getEixoY()].setEstadoZona(EstadoZona.REVELADO);
@@ -115,7 +115,7 @@ public class Partida {
 	 * Funcao que percorre os vizinhos vazios adjacentes.
 	 * @param coordenada - cordenada a qual a funcao irá percorrer os vizinhos.
 	 */
-	private void percorreVizinhosVazios (Coordenada coordenada) {
+	private void percorreVizinhos (Coordenada coordenada) {
 		
 		if (tabuleiro.getCampo()[coordenada.getEixoX()][coordenada.getEixoY()].getEstado().equals(Estado.VAZIO)) {
 			
@@ -127,7 +127,7 @@ public class Partida {
 				
 				if (tabuleiro.getCampo()[i.getEixoX()][i.getEixoY()].getEstado().equals(Estado.VAZIO) && tabuleiro.getCampo()[i.getEixoX()][i.getEixoY()].getEstadoZona().equals(EstadoZona.ESCONDIDO)) {
 					
-					percorreVizinhosVazios(i);
+					percorreVizinhos(i);
 					
 				}else if (tabuleiro.getCampo()[i.getEixoX()][i.getEixoY()].getEstado().equals(Estado.PERIGO)) {
 					
