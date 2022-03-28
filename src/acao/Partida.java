@@ -79,16 +79,18 @@ public class Partida {
 	 * @param coordenada
 	 */
 	public void jogada (TipoJogada tipoJogada, Coordenada coordenada) {
+		// zona atual que irá ser analisada
+		Zona zonaAtual = tabuleiro.getCampo()[coordenada.getEixoX()][coordenada.getEixoY()];
 				
 		if (tipoJogada.equals(TipoJogada.revelarZona)) {
 			
-			if (tabuleiro.getCampo()[coordenada.getEixoX()][coordenada.getEixoY()].getEstado().equals(Estado.VAZIO)) {
+			if (zonaAtual.getEstado().equals(Estado.VAZIO)) {
 				percorreVizinhos(coordenada);
 			
 			}else {
-				tabuleiro.getCampo()[coordenada.getEixoX()][coordenada.getEixoY()].setEstadoZona(EstadoZona.REVELADO);
+				zonaAtual.setEstadoZona(EstadoZona.REVELADO);
 				
-				if (tabuleiro.getCampo()[coordenada.getEixoX()][coordenada.getEixoY()].getEstado().equals(Estado.BOMBA)) {
+				if (zonaAtual.getEstado().equals(Estado.BOMBA)) {
 					for (Zona[] i : tabuleiro.getCampo()) {
 						for (Zona j : i) {
 							if (j.getEstado().equals(Estado.BOMBA)) {
@@ -104,10 +106,10 @@ public class Partida {
 			checkVitoria();
 			
 		}else if (tipoJogada.equals(TipoJogada.marcarZonaBomba)) {
-			tabuleiro.getCampo()[coordenada.getEixoX()][coordenada.getEixoY()].setEstadoZona(EstadoZona.MARCARBOMBA);
+			zonaAtual.setEstadoZona(EstadoZona.MARCARBOMBA);
 		
 		}else if (tipoJogada.equals(TipoJogada.desmarcarZonaBomba)) {
-			tabuleiro.getCampo()[coordenada.getEixoX()][coordenada.getEixoY()].setEstadoZona(EstadoZona.ESCONDIDO);
+			zonaAtual.setEstadoZona(EstadoZona.ESCONDIDO);
 		}
 	}
 	
@@ -116,22 +118,21 @@ public class Partida {
 	 * @param coordenada - cordenada a qual a funcao irá percorrer os vizinhos.
 	 */
 	private void percorreVizinhos (Coordenada coordenada) {
+
+		Zona zonaAtual = tabuleiro.getCampo()[coordenada.getEixoX()][coordenada.getEixoY()];
 		
-		if (tabuleiro.getCampo()[coordenada.getEixoX()][coordenada.getEixoY()].getEstado().equals(Estado.VAZIO)) {
-			
-			tabuleiro.getCampo()[coordenada.getEixoX()][coordenada.getEixoY()].setEstadoZona(EstadoZona.REVELADO);
-			
+		if (zonaAtual.getEstado().equals(Estado.VAZIO)) {
+			zonaAtual.setEstadoZona(EstadoZona.REVELADO);
 			ArrayList<Coordenada> vizinhosProx = tabuleiro.vizinhos(coordenada);
 			
 			for (Coordenada i : vizinhosProx) {
+				Zona zonaVizinhoProx = tabuleiro.getCampo()[i.getEixoX()][i.getEixoY()];
 				
-				if (tabuleiro.getCampo()[i.getEixoX()][i.getEixoY()].getEstado().equals(Estado.VAZIO) && tabuleiro.getCampo()[i.getEixoX()][i.getEixoY()].getEstadoZona().equals(EstadoZona.ESCONDIDO)) {
-					
+				if (zonaVizinhoProx.getEstado().equals(Estado.VAZIO) && zonaVizinhoProx.getEstadoZona().equals(EstadoZona.ESCONDIDO)) {
 					percorreVizinhos(i);
 					
-				}else if (tabuleiro.getCampo()[i.getEixoX()][i.getEixoY()].getEstado().equals(Estado.PERIGO)) {
-					
-					tabuleiro.getCampo()[i.getEixoX()][i.getEixoY()].setEstadoZona(EstadoZona.REVELADO);
+				}else if (zonaVizinhoProx.getEstado().equals(Estado.PERIGO)) {
+					zonaVizinhoProx.setEstadoZona(EstadoZona.REVELADO);
 					
 				}
 			}
